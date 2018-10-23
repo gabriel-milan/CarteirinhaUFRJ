@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+		<title>
+			Carteirinha UFRJ
+		</title>
+	</head>
+	{% extends "layout.html" %}
+	{% block body %}
+		<div class="header">
+			<a href="/"><img class="header-logo" src="{{ url_for('static', filename='images/OrienTinder_Logo_White.png') }}"></a>
+			<div class="header-right">
+				<a class="active" href="/">Início</a>
+				<a href="/register">Registrar</a>
+			</div>
+		</div>
+		<div class="login-page">
+			<div class="form">
+				<form class="login-form" action="/" method="post">
+					<p>Usuário</p>
+					{{ form.cpf }}
+					<p>Senha</p>
+					{{ form.password }}
+					{{ form.hidden_tag() }}
+					<input type="submit" value="Login">
+					<p class="message">Ainda não está registrado? <a href="/register">Crie uma conta!</a></p>
+				</form>
+			</div>
+		</div>
+	{% endblock %}
+</html>
