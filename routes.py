@@ -1,8 +1,10 @@
 #
 #   Imports
 #
+import requests
 from forms import *
 from models import *
+from protocol_utils import *
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, request, redirect, url_for, jsonify, flash
@@ -49,6 +51,16 @@ def unauthorized (error):
     return render_template('error_page.html', error_code = error.status_code, error_message = error.message)
 
 #
+#   Function to check protocol
+#
+def check_protocol ():
+    if (current_user['cpf']):
+        response = requests.post("http://127.0.0.1:5000/protocol", generate_request({"GET" : current_user['cpf'], "PASSWORD" : current_user['password']}))
+    else:
+        response = requests.post("http://127.0.0.1:5000/protocol", "")
+    return response
+
+#
 #   Routes
 #
 
@@ -59,13 +71,22 @@ def homepage():
         return redirect(url_for('carteirinha'))
     form = LoginForm()
     if request.method == 'POST':
-        # Parse stuff
         if form.validate():
             check_user = User.objects(cpf=form.cpf.data).first()
             if check_user:
                 if check_password_hash(check_user['password'], form.password.data):
                     login_user(check_user)
                     return redirect(url_for('carteirinha'))
+                else:
+                    response = generate_response({
+                        'status' : 2,
+                    })
+                    return response
+            else:
+                response = generate_response({
+                    'status' : 2,
+                })
+                return response
     return render_template('login.html', form=form)
 
 # Route to login
@@ -113,11 +134,33 @@ def register():
 
 # Route to generate the student card
 @app.route('/carteirinha')
-@login_required
 def carteirinha():
-    content = ""
-    # Fazer empacotamento dos dados para enviar
-    return render_template('carteirinha.html', content = content)
+    response = check_protocol ()
+    return response.text
+    pass #TODO : RENDER CARTEIRINHA
+
+# Route to protocol stuff
+@app.route('/protocol', methods=['POST'])
+def protocol():
+    if current_user.is_authenticated == True:
+        with open(current_user['profile_pic_path'], "rb") as imageFile:
+            f = imageFile.read()
+            b = bytearray(f)
+        response = generate_response({
+            'status' : 0,
+            'cpf' : check_user['cpf'],
+            'curso' : check_user['course'],
+            'dre' : check_user['dre'],
+            'nasc' : check_user['birthdate'],
+            'tamanho' : len(form.password.data),
+            'nome' : check_user['full_name'],
+            'foto' : b
+        })
+    else:
+        response = generate_response({
+            'status' : 1,
+        })
+    return response
 
 # Route to logout
 @app.route('/logout', methods = ['GET'])
