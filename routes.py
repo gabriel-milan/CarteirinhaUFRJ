@@ -50,6 +50,7 @@ if not check_user:
         profile_pic_path = "/static/uploads/fabio.jpeg", \
         expire_date = datetime.strptime("31/12/2020", "%d/%m/%Y") \
     ).save()
+check_user = User.objects(cpf="12345678911").first()
 if not check_user:
     random = User( \
         cpf = "12345678911", \
