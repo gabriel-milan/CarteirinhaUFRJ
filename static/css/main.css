@@ -7,7 +7,7 @@
 }
 .header-colored{
   overflow: hidden;
-  background-color: #FF4D2F;
+  background-color: #479e6c;
   padding: 20px 10px;
 }
 .header a {
@@ -47,7 +47,7 @@
   color: white;
 }
 .header a.active {
-  background-color: #FF4D2F;
+  background-color: #479e6c;
   color: white;
 }
 .header-colored a.active {
@@ -102,7 +102,7 @@
   font-size: 12px;
 }
 .form .message a {
-  color: #FF4D2F;
+  color: #479e6c;
   text-decoration: none;
 }
 .form .register-form {
@@ -139,14 +139,14 @@
   text-decoration: none;
 }
 .container .info span .fa {
-  color: #EF3B3A;
+  color: #479e6c;
 }
 body {
-  background: #FF4D2F;
-  background: -webkit-linear-gradient(right, #FF4D2F, rgb(255, 92, 63));
-  background: -moz-linear-gradient(right, #FF4D2F, rgb(255, 92, 63));
-  background: -o-linear-gradient(right, #FF4D2F, rgb(255, 92, 63));
-  background: linear-gradient(to left, #FF4D2F, rgb(255, 92, 63));
+  background: #479e6c;
+  background: -webkit-linear-gradient(right, #479e6c, #479e6c);
+  background: -moz-linear-gradient(right, #479e6c, #479e6c);
+  background: -o-linear-gradient(right, #479e6c, #479e6c);
+  background: linear-gradient(to left, #479e6c, #479e6c);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
@@ -162,22 +162,26 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 .content-row-white {
-  width: 850px;
+  border-radius: 25px;
+  width: 900px;
   padding: 8% 0 0;
   margin: auto;
   padding-top: 15px;
-  background: #CCCCCC;
-  font-size: 40px;;
-  height: 150px;
-  line-height: 150px;
+  background: #FFFFFF;
+  height: 600px;
   text-align: center;
+}
+.rounded-corner {
+  height: 120px;
+  width: 120px;
+  border-radius: 5px;
 }
 .content-row {
   width: 850px;
   padding: 8% 0 0;
   margin: auto;
   padding-top: 15px;
-  background: #FF4D2F;
+  background: #479e6c;
   font-size: 40px;
   height: 150px;
   line-height: 150px;
@@ -236,12 +240,14 @@ body {
   padding-top: 0px;
 }
 .table {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; */
+  padding-top: 0;
+  text-align: center;
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
 }
 .table td, .table th {
-  border: 1px solid #ddd;
+  border: 1px solid #FFFFFF;
   padding: 8px;
 }
 .table tr:nth-child(even){

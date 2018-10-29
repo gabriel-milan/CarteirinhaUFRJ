@@ -1,11 +1,38 @@
 <html>
-    <head>
-        <title>
-            Carteirinha UFRJ
-        </title>
-    </head>
-    <body>
-        <h1> TODO </h1>
-        <!-- PARSE CONTENT -->
-    </body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/card.css') }}">
+		<title>
+			Carteirinha UFRJ
+		</title>
+	</head>
+	{% extends "layout.html" %}
+	{% block body %}
+		<div class="header">
+			<a href="/"><img class="header-logo" src="{{ url_for('static', filename='images/LogoCarteirinha.png') }}"></a>
+			<div class="header-right">
+                <a class="active" href="/">Início</a>
+				<a href="/logout">Sair</a>
+			</div>
+		</div>
+		<p></p>
+		<!-- CARTAO IMPORT -->
+		<div class="card active">
+			<div class="fabs">
+				<img class="avatar" src={{ user.profile_pic_path }}>
+			</div>
+			<div class="user">
+				<div class="profiles">
+					<div class="profile" style="width: 100%">Nome<span>{{ user.full_name }}</span></div>
+					<div class="profile" style="width: 100%">Curso<span>{{ user.course }}</span></div>
+					<div class="profile" style="width: 33%">DRE<span>{{ user.dre }}</span></div>
+					<div class="profile" style="width: 33%">Data de nascimento<span>{{ birth }}</span></div>
+					<div class="profile" style="width: 33%">CPF<span>{{ user.cpf }}</span></div>
+					<div class="profile" style="width: 100%">Validade<span>{{ expire }}</span></div>
+					<div class="profile" style="width: 100%"><span><img style="width: 100px" src="{{ qrcode(user.dre) }}"></span></div>
+				</div>
+			</div>
+		</div>
+		<!-- END CARTÃO IMPORT -->
+	{% endblock %}
 </html>

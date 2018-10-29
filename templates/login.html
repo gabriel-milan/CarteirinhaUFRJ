@@ -8,10 +8,10 @@
 	{% extends "layout.html" %}
 	{% block body %}
 		<div class="header">
-			<a href="/"><img class="header-logo" src="{{ url_for('static', filename='images/OrienTinder_Logo_White.png') }}"></a>
+			<a href="/"><img class="header-logo" src="{{ url_for('static', filename='images/LogoCarteirinha.png') }}"></a>
 			<div class="header-right">
 				<a class="active" href="/">Início</a>
-				<a href="/register">Registrar</a>
+				<!-- <a href="/register">Registrar</a> -->
 			</div>
 		</div>
 		<div class="login-page">
@@ -23,7 +23,7 @@
 					{{ form.password }}
 					{{ form.hidden_tag() }}
 					<input type="submit" value="Login">
-					<p class="message">Ainda não está registrado? <a href="/register">Crie uma conta!</a></p>
+					<!-- <p class="message">Ainda não está registrado? <a href="/register">Crie uma conta!</a></p> -->
 				</form>
 			</div>
 		</div>

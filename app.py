@@ -3,6 +3,7 @@
 #
 from settings import *
 from flask import Flask
+from flask_qrcode import QRcode
 from flask_mongoengine import MongoEngine
 
 #
@@ -20,3 +21,8 @@ app.config['SECRET_KEY'] = CSRF_SECRET_KEY
 #   MongoDB engine
 #
 db = MongoEngine(app)
+
+#
+#   Extending app to QRCode
+#
+QRcode(app)
