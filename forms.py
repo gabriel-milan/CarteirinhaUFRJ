@@ -11,7 +11,7 @@ from wtforms import StringField, PasswordField, FileField
 #   Login form
 #
 class LoginForm (FlaskForm):
-    cpf = StringField('cpf', validators=[InputRequired(), Length(max = CPF_LENGTH)])
+    cpf = StringField('cpf', validators=[InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
 
 #

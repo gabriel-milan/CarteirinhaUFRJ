@@ -55,7 +55,7 @@ def generate_response (data):
             cpf = str(data['cpf'])
         except:
             return generate_response ({
-                "status" : 1
+                "status" : '1' + " Identificação necessária"
             })
         # Trying CURSO
         try:
@@ -90,13 +90,13 @@ def generate_response (data):
         # Checking if any field is missing
         if (empty_fields != []):
             return pack_data ({
-                "STATUS" : 6,
-                "CAMPO" : str(empty_fields)
+                "STATUS" : "6" + " Campos sem informação",
+                "CAMPO" : str(empty_fields),
             })
         # Returning no error response
         else:
             return pack_data({
-                "STATUS" : status,
+                "STATUS" : str(status) + " OK",
                 "CURSO" : curso,
                 "DRE" : dre,
                 "NASC" : nasc,
@@ -106,8 +106,20 @@ def generate_response (data):
             })
     # Returning general error response
     else:
+        if str(status) == '0':
+            msg = "OK"
+        elif str(status) == '1':
+            msg = "Identificação necessária"
+        elif str(status) == '2':
+            msg = "Senha incorreta"
+        elif str(status) == '3':
+            msg = "CPF não registrado ou incorreto"
+        elif str(status) == '4':
+            msg = "DRE inativo ou carteirinha já expirada"
+        elif str(status) == '5':
+            msg = "Foto não encontrada"
         return pack_data({
-            "STATUS" : status
+            "STATUS" : str(status) + " " + msg
         })
     pass
 
