@@ -1,7 +1,10 @@
-Flask==1.0.2
-Flask_Login==0.4.1
 Werkzeug==0.14.1
+requests==2.18.4
 mongoengine==0.15.3
 flask_mongoengine==0.9.5
+Flask_Login==0.4.1
 WTForms==2.2.1
 Flask_WTF==0.14.2
+Flask==1.0.2
+Flask_QRcode==2.0.2
+python-dateutil

@@ -21,7 +21,7 @@ if not check_user:
         password = generate_password_hash("1234", method='sha256'), \
         full_name = "Bruno Pachá Moraes", \
         dre = "116046861", \
-        course = "Engenharia da Computação e Informação", \
+        course = "Engenharia de Controle e Automação", \
         birthdate = datetime.strptime("19/03/1998", "%d/%m/%Y"), \
         profile_pic_path = "/static/uploads/pacha.jpeg", \
         expire_date = datetime.strptime("31/12/2020", "%d/%m/%Y") \
@@ -37,6 +37,18 @@ if not check_user:
         birthdate = datetime.strptime("12/04/1997", "%d/%m/%Y"), \
         profile_pic_path = "/static/uploads/gazola.jpeg", \
         expire_date = datetime.strptime("31/12/2019", "%d/%m/%Y") \
+    ).save()
+check_user = User.objects(cpf="17211316713").first()
+if not check_user:
+    fabio = User( \
+        cpf = "17211316713", \
+        password = generate_password_hash("1234", method='sha256'), \
+        full_name = "Fabio Kumakola Giglio", \
+        dre = "116043716", \
+        course = "Engenharia de Controle e Automação", \
+        birthdate = datetime.strptime("14/10/1997", "%d/%m/%Y"), \
+        profile_pic_path = "/static/uploads/fabio.jpeg", \
+        expire_date = datetime.strptime("31/12/2020", "%d/%m/%Y") \
     ).save()
 
 #
