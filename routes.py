@@ -50,6 +50,17 @@ if not check_user:
         profile_pic_path = "/static/uploads/fabio.jpeg", \
         expire_date = datetime.strptime("31/12/2020", "%d/%m/%Y") \
     ).save()
+if not check_user:
+    random = User( \
+        cpf = "12345678911", \
+        password = generate_password_hash("1234", method='sha256'), \
+        full_name = "Random Name", \
+        dre = "110000000", \
+        course = "Engenharia de Shouldn't Work", \
+        birthdate = datetime.strptime("01/01/1997", "%d/%m/%Y"), \
+        profile_pic_path = "/static/uploads/random.jpeg", \
+        expire_date = datetime.strptime("31/12/2017", "%d/%m/%Y") \
+    ).save()
 
 #
 #   Login Manager
@@ -99,6 +110,7 @@ def unauthorized (error):
 @app.route('/', methods = ['GET', 'POST'])
 def homepage():
     if current_user.is_authenticated == True:
+        flash(generate_response(current_user))
         return redirect(url_for('carteirinha'))
     form = LoginForm()
     if request.method == 'POST':
@@ -106,18 +118,24 @@ def homepage():
             check_user = User.objects(cpf=form.cpf.data).first()
             if check_user:
                 if check_password_hash(check_user['password'], form.password.data):
-                    login_user(check_user)
-                    return redirect(url_for('carteirinha'))
+                    if check_user.expire_date < datetime.now():
+                        flash(generate_response({
+                            'status' : 4
+                        }))
+                    else:
+                        login_user(check_user)
+                        flash (generate_response(current_user))
+                        return redirect(url_for('carteirinha'))
                 else:
                     response = generate_response({
                         'status' : 2,
                     })
-                    return response
+                    flash (response)
             else:
                 response = generate_response({
                     'status' : 3,
                 })
-                return response
+                flash (response)
     return render_template('login.html', form=form)
 
 # Route to login
@@ -127,9 +145,14 @@ def login ():
 
 # Route to generate the student card
 @app.route('/carteirinha')
-@login_required
 def carteirinha():
-    return render_template('carteirinha.html', user = current_user, birth = current_user.birthdate.strftime("%d/%m/%Y"), expire = current_user.expire_date.strftime("%d/%m/%Y"))
+    if current_user.is_authenticated == True:
+        return render_template('carteirinha.html', user = current_user, birth = current_user.birthdate.strftime("%d/%m/%Y"), expire = current_user.expire_date.strftime("%d/%m/%Y"))
+    else:
+        flash(generate_response({
+            'status' : 1
+        }))
+        return redirect(url_for('login'))
 
 # Route to logout
 @app.route('/logout', methods = ['GET'])

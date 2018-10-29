@@ -46,9 +46,7 @@ def generate_response (data):
     try:
         status = str(data['status'])
     except:
-        return generate_response ({
-            "status" : 7
-        })
+        status = 0
     # If status 0, tries to get remaining data
     if (status == '0'):
         empty_fields = []
